@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: "root"
@@ -6,12 +7,15 @@ import { Injectable } from '@angular/core';
 
 export class gifsService {
 
+  private apiKey: string = 'c9BspfbF7N1eCB0fDFvtHl86HSVg2XSJ';
   private _historial: string[] = [];
 
   get historial() {
     
     return [...this._historial];
   }
+
+  constructor( private http: HttpClient){}
 
   buscarGifs(query: string = '') {
    
@@ -21,6 +25,11 @@ export class gifsService {
       this._historial.unshift( query ); // Añadiendo nuevos elementos al principio del array (si NO existen en el historial)
       this._historial = this._historial.splice(0,10); // Limitando a 10 elementos nuestro sidebar
     }
+
+    this.http.get('https://api.giphy.com/v1/gifs/search?api_key=c9BspfbF7N1eCB0fDFvtHl86HSVg2XSJ&q=dragon ball z&limit=10')
+      .subscribe( ( response: any ) => {
+        console.log(response.data)
+      })
 
     
     console.log(this._historial)
