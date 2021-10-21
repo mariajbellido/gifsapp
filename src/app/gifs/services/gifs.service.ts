@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Gif, SearchGifsResponse } from '../interface/gifs.interface';
 
 @Injectable({
   providedIn: "root"
@@ -10,7 +11,7 @@ export class gifsService {
   private apiKey: string = 'c9BspfbF7N1eCB0fDFvtHl86HSVg2XSJ';
   private _historial: string[] = [];
 
-  public resultados: any[] = [];
+  public resultados: Gif[] = [];
 
   get historial() {
     
@@ -28,10 +29,11 @@ export class gifsService {
       this._historial = this._historial.splice(0,10); // Limitando a 10 elementos nuestro sidebar
     }
 
-    this.http.get(`https://api.giphy.com/v1/gifs/search?api_key=c9BspfbF7N1eCB0fDFvtHl86HSVg2XSJ&q=${query}&limit=10`)
-      .subscribe( ( response: any ) => {
+    this.http.get<SearchGifsResponse>(`https://api.giphy.com/v1/gifs/search?api_key=c9BspfbF7N1eCB0fDFvtHl86HSVg2XSJ&q=${query}&limit=10`)
+      .subscribe( ( response ) => {
         console.log(response.data);
         this.resultados = response.data;
+    
       })
 
     
