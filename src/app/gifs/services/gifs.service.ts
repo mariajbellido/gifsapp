@@ -18,7 +18,12 @@ export class gifsService {
     return [...this._historial];
   }
 
-  constructor( private http: HttpClient){}
+  constructor( private http: HttpClient){
+
+    if (localStorage.getItem('historial')) {
+      this._historial = JSON.parse(localStorage.getItem('historial')! );
+    }
+  }
 
   buscarGifs(query: string = '') {
    
@@ -27,6 +32,8 @@ export class gifsService {
     if (!this._historial.includes( query )) {
       this._historial.unshift( query ); // Añadiendo nuevos elementos al principio del array (si NO existen en el historial)
       this._historial = this._historial.splice(0,10); // Limitando a 10 elementos nuestro sidebar
+
+      localStorage.setItem('historial', JSON.stringify(this._historial));
     }
 
     this.http.get<SearchGifsResponse>(`https://api.giphy.com/v1/gifs/search?api_key=c9BspfbF7N1eCB0fDFvtHl86HSVg2XSJ&q=${query}&limit=10`)
