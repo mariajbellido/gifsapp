@@ -1,7 +1,5 @@
 # GifsApp
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/gifsapp)
-[Visit the project here] (https://gifsapp.stackblitz.io/)
 
 ### Temas tratados en el proyecto
 
@@ -25,3 +23,10 @@
 
 - Animaciones mediante css
 
+### Para visitarlo
+
+https://gifsapp.stackblitz.io/
+
+### En StackBlitz
+
+https://stackblitz.com/edit/gifsapp
